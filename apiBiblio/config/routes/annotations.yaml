@@ -1,4 +1,0 @@
-rest_controller:
-  resource: ../../src/Controller/
-  type: annotation
-  #prefix: /Api
