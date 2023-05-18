@@ -115,10 +115,19 @@ class ComposerStaticInit75befc8792e5d8cd0c4f1bc3659f9dff
             'PhpParser\\' => 10,
             'PHPStan\\PhpDocParser\\' => 21,
         ),
+        'N' => 
+        array (
+            'Nelmio\\CorsBundle\\' => 18,
+            'Negotiation\\' => 12,
+        ),
         'M' => 
         array (
             'Monolog\\' => 8,
             'Masterminds\\' => 12,
+        ),
+        'F' => 
+        array (
+            'FOS\\RestBundle\\' => 15,
         ),
         'E' => 
         array (
@@ -147,6 +156,7 @@ class ComposerStaticInit75befc8792e5d8cd0c4f1bc3659f9dff
         array (
             'App\\Tests\\' => 10,
             'App\\' => 4,
+            'ApiPlatform\\' => 12,
         ),
     );
 
@@ -465,6 +475,14 @@ class ComposerStaticInit75befc8792e5d8cd0c4f1bc3659f9dff
         array (
             0 => __DIR__ . '/..' . '/phpstan/phpdoc-parser/src',
         ),
+        'Nelmio\\CorsBundle\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/nelmio/cors-bundle',
+        ),
+        'Negotiation\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/willdurand/negotiation/src/Negotiation',
+        ),
         'Monolog\\' => 
         array (
             0 => __DIR__ . '/..' . '/monolog/monolog/src/Monolog',
@@ -472,6 +490,10 @@ class ComposerStaticInit75befc8792e5d8cd0c4f1bc3659f9dff
         'Masterminds\\' => 
         array (
             0 => __DIR__ . '/..' . '/masterminds/html5/src',
+        ),
+        'FOS\\RestBundle\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/friendsofsymfony/rest-bundle',
         ),
         'Egulias\\EmailValidator\\' => 
         array (
@@ -549,6 +571,20 @@ class ComposerStaticInit75befc8792e5d8cd0c4f1bc3659f9dff
         'App\\' => 
         array (
             0 => __DIR__ . '/../..' . '/src',
+        ),
+        'ApiPlatform\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/api-platform/core/src',
+        ),
+    );
+
+    public static $prefixesPsr0 = array (
+        'J' => 
+        array (
+            'JsonpCallbackValidator' => 
+            array (
+                0 => __DIR__ . '/..' . '/willdurand/jsonp-callback-validator/src',
+            ),
         ),
     );
 
@@ -1194,6 +1230,7 @@ class ComposerStaticInit75befc8792e5d8cd0c4f1bc3659f9dff
         return \Closure::bind(function () use ($loader) {
             $loader->prefixLengthsPsr4 = ComposerStaticInit75befc8792e5d8cd0c4f1bc3659f9dff::$prefixLengthsPsr4;
             $loader->prefixDirsPsr4 = ComposerStaticInit75befc8792e5d8cd0c4f1bc3659f9dff::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInit75befc8792e5d8cd0c4f1bc3659f9dff::$prefixesPsr0;
             $loader->classMap = ComposerStaticInit75befc8792e5d8cd0c4f1bc3659f9dff::$classMap;
 
         }, null, ClassLoader::class);
