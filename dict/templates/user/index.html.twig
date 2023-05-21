@@ -1,0 +1,34 @@
+
+{% extends 'base.html.twig' %}
+ 
+{% block title %}Project index{% endblock %}
+ 
+{% block body %}
+    <div class="container">
+        <h2 class="text-center mt-5 mb-3">Liste des utilisateursr</h2>
+        <div class="card">
+            <div class="card-header">
+                <a class="btn btn-outline-primary" href="{{ path('app_registerUser') }}"> 
+                    Create New Project 
+                </a>
+            </div>
+            <div class="card-body">
+                <table class="table table-bordered">
+                    <tr>
+                       {% for word in users %}
+                        <tr>
+                            <td>{{ word.id }}</td>
+                            <td>{{ word.email }}</td>
+                        </tr>
+                        {% else %}
+                            <tr>
+                                <td colspan="5">no records found</td>
+                            </tr>
+                        {% endfor %}
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+ 
+{% endblock %}

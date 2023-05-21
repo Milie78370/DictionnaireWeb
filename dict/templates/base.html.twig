@@ -2,18 +2,50 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>{% block title %}Welcomes!{% endblock %}</title>
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
-        {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
+        <meta name="msapplication-TileImage" content="assets/img/favicons/mstile-150x150.png">
+        <meta name="theme-color" content="#ffffff">
+        <title>{% block title %}InstaKilo{% endblock %}</title>
+        <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet">
+            
         {% block stylesheets %}
-            {{ encore_entry_link_tags('app') }}
+             <link rel="apple-touch-icon" sizes="180x180" href="assets/img/favicons/apple-touch-icon.png">
+            <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicons/favicon-32x32.png">
+            <link rel="icon" type="image/png" sizes="16x16" href="assets/img/favicons/favicon-16x16.png">
+            <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicons/favicon.ico">
+            <link rel="manifest" href="assets/img/favicons/manifest.json">
+            <link rel="preconnect" href="https://fonts.gstatic.com">
+            <link href="vendors/prism/prism.css" rel="stylesheet">
+            <link href="vendors/swiper/swiper-bundle.min.css" rel="stylesheet">
+            <link href="assets/css/theme.css" rel="stylesheet" />
+            <link href="assets/css/user.css" rel="stylesheet" />
+            <link href="assets/css/grid.css" rel="stylesheet" />
         {% endblock %}
 
-        {% block javascripts %}
-            {{ encore_entry_script_tags('app') }}
-        {% endblock %}
     </head>
     <body>
+        <nav class="navbar navbar-light py-3 px-0 overflow-hidden">
+            <div class="container px-md-5">
+                <div class="col-4">
+                    <div class="d-none d-lg-flex justify-content-end position-relative z-index-1">
+                        <div class="d-flex gap-3 align-items-start"><a class="mb-0 ms-auto text-warning fs-0 fw-bold text-uppercase" href="{{ path('app_login') }}">Login Now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
         {% block body %}{% endblock %}
+
+
+        {#Les scripts javascripts#}
+        <script src="vendors/popper/popper.min.js"></script>
+        <script src="vendors/bootstrap/bootstrap.min.js"></script>
+        <script src="vendors/anchorjs/anchor.min.js"></script>
+        <script src="vendors/is/is.min.js"></script>
+        <script src="vendors/fontawesome/all.min.js"></script>
+        <script src="vendors/lodash/lodash.min.js"></script>
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=window.scroll"></script>
+        <script src="vendors/prism/prism.js"></script>
+        <script src="vendors/swiper/swiper-bundle.min.js"></script>
+        <script src="assets/js/theme.js"></script>
     </body>
 </html>
