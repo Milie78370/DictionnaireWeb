@@ -10,7 +10,21 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use FOS\RestBundle\Controller\Annotations\Post as RestPost;
+#use FOS\RestBundle\Controller\Annotations\Post as RestPost;
+use FOS\RestBundle\Controller\Annotations as Rest;
+use ApiPlatform\Metadata\Put;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\Post;
+use ApiPlatform\Metadata\Delete;
+
+/*#[ApiResource(
+    operations: [
+        new Get(),
+        new Put(),
+        new Delete(),
+        new Post()
+    ]
+)]*/
 
 class WordController extends AbstractFOSRestController
 #AbstractController
@@ -29,7 +43,7 @@ class WordController extends AbstractFOSRestController
     }
 
     /**
-    * @Rest\Post(“../api/Word”)
+    * @Rest\Post("../api/Word")
     */
     public function postWord(Request $request): View
     {
@@ -45,9 +59,9 @@ class WordController extends AbstractFOSRestController
         return View::create($word, Response::HTTP_CREATED);
     }
 
-    #/**
-    #* @Rest\Get(“/words/{id}”)
-    # */
+    /**
+    * @Rest\Get("/words/{id}")
+    */
     public function getWord(int $id): View
     {
         $word = $this->objectRepository->find($id);
@@ -55,9 +69,9 @@ class WordController extends AbstractFOSRestController
         return View::create($word, Response::HTTP_OK);
     }
 
-    #/**
-    # * @Rest\Get(“/books”)
-    # */
+    /**
+    * @Rest\Get("/words")
+    */
     public function getWords(): View
     {
         $words = $this->objectRepository->findAll();
@@ -65,10 +79,10 @@ class WordController extends AbstractFOSRestController
         return View::create($words, Response::HTTP_OK);
     }
 
-    #/**
-    # * @Rest\Put(“/books/{id}”)
-    #*/
-    public function putBook(int $id, Request $request): View
+    /**
+    * @Rest\Put("/words/{id}")
+    */
+    public function putWord(int $id, Request $request): View
     {
         /** @var Word $word */
         $word = $this->objectRepository->find($id);
@@ -81,9 +95,9 @@ class WordController extends AbstractFOSRestController
         return View::create($word, Response::HTTP_OK);
     }
 
-    #/**
-    # * @Rest\Delete(“/books”)
-    # */
+    /**
+    * @Rest\Delete("/words")
+    */
     public function deleteWord(int $id): View
     {
         $this->entityManager->remove($this->objectRepository->find($id));
