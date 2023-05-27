@@ -16,11 +16,11 @@ namespace ApiPlatform\Symfony\EventListener;
 use ApiPlatform\Api\UriVariablesConverterInterface;
 use ApiPlatform\Exception\InvalidIdentifierException;
 use ApiPlatform\Exception\InvalidUriVariableException;
-use ApiPlatform\Exception\RuntimeException;
 use ApiPlatform\Metadata\HttpOperation;
 use ApiPlatform\Metadata\Put;
 use ApiPlatform\Metadata\Resource\Factory\ResourceMetadataCollectionFactoryInterface;
 use ApiPlatform\Serializer\SerializerContextBuilderInterface;
+use ApiPlatform\State\Exception\ProviderNotFoundException;
 use ApiPlatform\State\ProviderInterface;
 use ApiPlatform\State\UriVariablesResolverTrait;
 use ApiPlatform\Util\CloneTrait;
@@ -43,7 +43,7 @@ final class ReadListener
 
     public function __construct(
         private readonly ProviderInterface $provider,
-        ?ResourceMetadataCollectionFactoryInterface $resourceMetadataCollectionFactory = null,
+        ResourceMetadataCollectionFactoryInterface $resourceMetadataCollectionFactory = null,
         private readonly ?SerializerContextBuilderInterface $serializerContextBuilder = null,
         UriVariablesConverterInterface $uriVariablesConverter = null,
     ) {
@@ -93,7 +93,7 @@ final class ReadListener
             $data = $this->provider->provide($operation, $uriVariables, $context);
         } catch (InvalidIdentifierException|InvalidUriVariableException $e) {
             throw new NotFoundHttpException('Invalid identifier value or configuration.', $e);
-        } catch (RuntimeException $e) {
+        } catch (ProviderNotFoundException $e) {
             $data = null;
         }
 
