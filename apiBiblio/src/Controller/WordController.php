@@ -17,18 +17,12 @@ use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\Post;
 use ApiPlatform\Metadata\Delete;
 
-/*#[ApiResource(
-    operations: [
-        new Get(),
-        new Put(),
-        new Delete(),
-        new Post()
-    ]
-)]*/
+
 
 class WordController extends AbstractFOSRestController
 #AbstractController
 {
+    
     #[Route('/word', name: 'app_word')]
     /** @var EntityManagerInterface */
     private $entityManager;
@@ -42,9 +36,7 @@ class WordController extends AbstractFOSRestController
         $this->objectRepository = $this->entityManager->getRepository(Word::class);
     }
 
-    /**
-    * @Rest\Post("../api/Word")
-    */
+    
     public function postWord(Request $request): View
     {
         $word = new Word();
