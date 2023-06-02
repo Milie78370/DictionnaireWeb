@@ -2,7 +2,11 @@
 
 namespace App\Controller;
 
+use App\Entity\GroupWord;
 use App\Entity\Word;
+use Doctrine\ORM\EntityManagerInterface;
+use App\Repository\GroupWordRepository;
+use App\Entity\Language;
 use App\Form\WordType;
 use App\Repository\WordRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -22,15 +26,31 @@ class WordController extends AbstractController
     }
 
     #[Route('/new', name: 'app_word_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, WordRepository $wordRepository): Response
+    public function new(Request $request, WordRepository $wordRepository, EntityManagerInterface $entityManager,): Response
     {
         $word = new Word();
         $form = $this->createForm(WordType::class, $word);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $wordRepository->save($word, true);
+            $word->setUser($this->getUser());
+        
+            // Récupérer le champ spécifique du choix de langue
+            $selectedLanguage = $form->get('language')->getData();
+            $language = new Language();
+            $language -> setName($selectedLanguage);
+            $entityManager->persist($language);
+            $word->addLanguage($language);
 
+            $selectedgroupWord = $form->get('groupWord')->getData();
+
+            $groupWord = new GroupWord();
+            $groupWord->setLabel($selectedgroupWord); 
+            $entityManager->persist($groupWord);
+            $word->setGroupWord($groupWord);
+
+            $wordRepository->save($word, true);
+            $this->addFlash('success', 'Votre mot a été ajouté');
             return $this->redirectToRoute('app_word_index', [], Response::HTTP_SEE_OTHER);
         }
 

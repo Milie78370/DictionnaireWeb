@@ -7,6 +7,8 @@ use App\Repository\WordRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: WordRepository::class)]
 #[ApiResource]
@@ -15,15 +17,22 @@ class Word
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups("post:read")]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups("post:read")]
+    #[Assert\NotBlank(message:"La definition du mot est obligatoire")]
     private ?string $def = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups("post:read")]
+    #[Assert\NotBlank(message:"le mot dans le dictionnaire est obligatoire")]
     private ?string $inputWord = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups("post:read")]
+    #[Assert\NotBlank(message:"le groupe de mot est obligatoire")]
     private ?string $wordType = null;
 
     #[ORM\OneToMany(mappedBy: 'word', targetEntity: Language::class)]
