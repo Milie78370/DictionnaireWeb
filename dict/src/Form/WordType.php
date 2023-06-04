@@ -2,18 +2,17 @@
 
 namespace App\Form;
 
-use App\Entity\GroupWord;
 use App\Entity\Word;
+use App\Entity\GroupWord;
 use App\Entity\Language;
-use App\Repository\GroupWordRepository;
-use App\Repository\LanguageRepository;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Doctrine\ORM\EntityManagerInterface;
-use PHPUnit\TextUI\XmlConfiguration\Group;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use App\Repository\GroupWordRepository;
+use App\Repository\LanguageRepository;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 class WordType extends AbstractType
 {
@@ -22,22 +21,42 @@ class WordType extends AbstractType
     {
         $builder
             ->add('def')
-            ->add('inputWord')
+            ->add('inputWord', TextareaType::class, [
+                'label' => 'Définition du mot',
+                'required' => false,
+                'attr' => [
+                    'placeholder' => 'Entrez votre mot',
+                    'rows' => 5
+                ],
+            ])
             ->add('wordType')
-            ->add('language', ChoiceType::class, array( 
-                'choices'  => array( 
-                   'Francais' => 'Francais', 
-                   'Anglais' => 'Anglais', 
-                ), 
+            ->add('language', EntityType::class, [
+                'class' => Language::class,
+                'label' => 'Language: ',
+                'placeholder' => 'Choisir une Language',
+                'required' => false,
+                'query_builder' => function(LanguageRepository $repo) {
+                    return  $repo->createQueryBuilder('w')
+                        ->distinct()
+                        ->orderBy('w.name', 'ASC')
+                        ->groupBy('w.name')
+                    ;
+                },
                 'mapped' => false
-             ))
-            ->add('groupWord', ChoiceType::class, array( 
-                'choices'  => array( 
-                   'Nom' => 'Nom', 
-                   'Verbe' => 'Verbe', 
-                ), 
-                'mapped' => false
-            ))
+            ])
+            ->add('groupWord', EntityType::class, [
+                'class' => GroupWord::class,
+                'label' => 'Categorie: ',
+                'placeholder' => 'Choisir une catégorie',
+                'required' => false,
+                'query_builder' => function(GroupWordRepository $repo) {
+                    return  $repo->createQueryBuilder('w')
+                        ->distinct()
+                        ->orderBy('w.label', 'ASC')
+                        ->groupBy('w.label')
+                    ;
+                }
+            ])
             
         ;
     }

@@ -16,6 +16,7 @@
             </tr>
         </thead>
         <tbody>
+        
         {% for word in words %}
             <tr>
                 <td>{{ word.id }}</td>
@@ -42,4 +43,10 @@
     </table>
 
     <a href="{{ path('app_word_new') }}">Create new</a>
+
+    <div class="pagination">
+        {{ knp_pagination_render(words) }}
+    </div>
+   
+
 {% endblock %}

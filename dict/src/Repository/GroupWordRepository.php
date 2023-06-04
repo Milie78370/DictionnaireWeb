@@ -39,6 +39,20 @@ class GroupWordRepository extends ServiceEntityRepository
         }
     }
 
+/**
+* @return GroupWord[] Requête permettant de récupérer tous les 
+* les mots du dictionnaire entrés par un utilisateur donné
+*/
+public function filterWordByCategorie(): array
+{
+    return $this->createQueryBuilder('w')
+        ->orderBy('w.label', 'ASC')
+        ->groupBy('w.label')
+        ->getQuery()
+        ->getResult()
+    ;
+}
+
 //    /**
 //     * @return GroupWord[] Returns an array of GroupWord objects
 //     */
