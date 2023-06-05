@@ -1,11 +1,25 @@
-{{ form_start(form) }}
-    <div class="form-group">
-        {{ form_row(form.email, {'attr': {'class': 'form-control'}}) }}
-    </div>
-    <div class="form-group">
-        {{ form_row(form.password, {'attr': {'class': 'form-control'}}) }}
-    </div>
-    <div class="form-group">
-        <button type="submit" class="btn btn-primary btn-block"> S'inscrire </button>
-    </div>
-{{ form_end(form) }}
+{% extends 'base.html.twig' %}
+
+{% block title %}Inscription{% endblock %}
+
+{% block body %}
+        <div class="login-box">
+            {{ form_start(form) }}
+                <div class="user-box">
+                    <div class="form-group">
+                        {{ form_row(form.email, {'attr': {'class': 'form-control'}}) }}
+                    </div>
+                </div>
+
+                <div class="user-box">
+                    <div class="form-group">
+                        {{ form_row(form.password, {'attr': {'class': 'form-control'}}) }}
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary btn-block"> S'inscrire </button>
+                </div>
+            {{ form_end(form) }}
+        </div>
+{% endblock %}
