@@ -1,0 +1,21 @@
+
+{{ form_start(form) }}
+    <div class="form-group">
+        {{ form_row(form.def, {'attr': {'class': 'form-control'}}) }}
+    </div>
+    <div class="form-group">
+        {{ form_row(form.inputWord, {'attr': {'class': 'form-control'}}) }}
+    </div>
+     <div class="form-group">
+        {{ form_row(form.wordType, {'attr': {'class': 'form-control'}}) }}
+    </div>
+     <div class="form-group">
+        {{ form_row(form.language, {'attr': {'class': 'form-control'}}) }}
+    </div>
+     <div class="form-group">
+        {{ form_row(form.groupWord, {'attr': {'class': 'form-control'}}) }}
+    </div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary btn-block"> S'inscrire </button>
+    </div>
+{{ form_end(form) }}

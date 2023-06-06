@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Word index{% endblock %}
+
+{% block body %}
+    <h1>Word index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Def</th>
+                <th>InputWord</th>
+                <th>WordType</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        
+        {% for word in words %}
+            <tr>
+                <td>{{ word.id }}</td>
+                <td>{{ word.def }}</td>
+                <td>{{ word.inputWord }}</td>
+                <td>{{ word.wordType }}</td>
+                <td>
+                    <a href="{{ path('app_word_show', {'id': word.id}) }}">show</a>
+                    <a href="{{ path('app_word_edit', {'id': word.id}) }}">edit</a>
+                </td>
+                <td>
+                    <form method="post" action="{{ path('app_word_delete', {'id': word.id}) }}" onsubmit="return confirm('Are you sure you want to delete this item?');">
+                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ word.id) }}">
+                        <button class="btn btn-outline-danger">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_word_new') }}">Create new</a>
+
+    <div class="pagination">
+        {{ knp_pagination_render(words) }}
+    </div>
+   
+
+{% endblock %}

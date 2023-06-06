@@ -1,0 +1,76 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Connexion{% endblock %}
+
+{% block body %}
+<section class="vh-100">
+    <div class="allFormClass">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+
+            <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
+                <form method="post">
+
+                    {% for registrationForm in app.flashes('success') %}
+                        <div class="alert alert-success">
+                            {{ registrationForm }}
+                        </div>
+                    {% endfor %}
+
+
+                    <div class="w-4/5 m-auto text-center">
+                        <div class="py-12 border-b border-gray-200">
+                            <h1 class="connexionText">
+                                Connexion
+                            </h1>
+                    
+                            <div class="form-outline">
+                                <label class="form-label">Email</label>
+                                <input 
+                                    type="email" 
+                                    name="email" 
+                                    id="inputEmail" 
+                                    class="form-control form-control-lg"
+                                    placeholder="Email"
+                                    autocomplete="email" 
+                                    required 
+                                    autofocus
+                                >
+                            </div>
+
+                            <div class="form-outline mb-4">
+                              <label class="form-label">Mot de passe</label>
+                                <input 
+                                    type="password" 
+                                    name="password" 
+                                    id="inputPassword" 
+                                    class="form-control form-control-lg"
+                                    autocomplete="current-password" 
+                                    placeholder="Mot de passe"
+                                    required
+                                >
+                            </div>
+                            
+                            <input 
+                                type="hidden" 
+                                name="_csrf_token"
+                                value="{{ csrf_token('authenticate') }}"
+                            >
+
+                           <div class="text-center text-lg-start mt-4 pt-2">
+                                <button 
+                                    class="connexionBtn"
+                                    type="submit"
+                                    style="padding-left: 2.5rem; padding-right: 2.5rem;">
+                                    Connexion
+                                </button>
+                                <p class="RedirectionInscription">Vous n'avez pas de compte ? <a href={{ path('app_registerUser') }}
+                                        class="link-danger">Inscrivez-vous</a> !</p>
+                            </div>
+                        </div>
+                     </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Word{% endblock %}
+
+{% block body %}
+    <h1>Word</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ word.id }}</td>
+            </tr>
+            <tr>
+                <th>Def</th>
+                <td>{{ word.def }}</td>
+            </tr>
+            <tr>
+                <th>InputWord</th>
+                <td>{{ word.inputWord }}</td>
+            </tr>
+            <tr>
+                <th>WordType</th>
+                <td>{{ word.wordType }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_word_index') }}">back to list</a>
+
+    <a href="{{ path('app_word_edit', {'id': word.id}) }}">edit</a>
+    
+{% endblock %}

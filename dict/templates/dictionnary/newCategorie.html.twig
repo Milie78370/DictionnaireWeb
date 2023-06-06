@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+{% block title %}Dict index{% endblock %}
+
+{% block body %}
+    <h1>Word index</h1>
+
+    {{ form_start(form) }}
+        <div class="form-group">
+            {{ form_row(form.def, {'attr': {'class': 'form-control'}}) }}
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary btn-block"> Rechercher </button>
+        </div>
+    {{ form_end(form) }}
+
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Def</th>
+                <th>InputWord</th>
+                <th>WordType</th>
+            </tr>
+        </thead>
+        <tbody>
+        
+        {% for word in words %}
+            <tr>
+                <td>{{ word.def }}</td>
+                <td>{{ word.inputWord }}</td>
+                <td>{{ word.wordType }}</td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_dictionnary') }}">Voir tout le dictionnaire</a>
+
+{% endblock %}
