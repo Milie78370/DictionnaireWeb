@@ -51,7 +51,6 @@ class WordController extends AbstractController
                 // La langue n'existe pas, créer un nouvel objet Language
                 $language = new Language();
                 $language->setName($selectedLanguage);
-                $entityManager->persist($language);
             }
             $word->addLanguage($language);
 
@@ -63,9 +62,15 @@ class WordController extends AbstractController
                 // La catégorie n'existe pas, créer un nouvel objet GroupWord
                 $groupWord = new GroupWord();
                 $groupWord->setLabel($selectedgroupWord);
-                $entityManager->persist($groupWord);
             }
             $word->setGroupWord($groupWord);
+
+            if(!$language && !$groupWord){
+                $language->setWord($word);
+                $language->setGroupWord($groupWord);
+                $entityManager->persist($language);
+                $entityManager->persist($groupWord);
+            }
 
             $wordRepository->save($word, true);
             $this->addFlash('success', 'Votre mot a été ajouté');

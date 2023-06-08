@@ -29,7 +29,7 @@ class DictionnaryController extends AbstractController
     }
 
     #[Route('/dictSearch', name: 'search', methods: ['GET', 'POST'])]
-    public function SearchWord(Request $request, WordRepository $wordRepository): Response
+    public function SearchWord(Request $request, WordRepository $wordRepository, PaginatorInterface $paginator): Response
     {
         
         $word = new Word();
@@ -37,12 +37,13 @@ class DictionnaryController extends AbstractController
         $form->handleRequest($request);
 
         $result='';
+        $pagination=[];
+
 
         if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->get('def')->getData();
             $dataCategorie = $form->get('groupWord')->getData();
             
-
             if(!empty($data)){
                 // Cas où seulement le champ de recherche est rempli
                 $result = $wordRepository->findWord($data);
@@ -51,18 +52,32 @@ class DictionnaryController extends AbstractController
                 $result = $wordRepository->findByGroupByUserCategorie($data, $dataCategorie);
             } else if(!empty($dataCategorie)){
                 // Cas où seulement le champ de catégorie est rempli
+                echo "je suis dedans";
                 $result = $wordRepository->findByGroupByUser($dataCategorie);
             } else {
                 // Cas où aucun champ n'est rempli
                 $result = $wordRepository->findAll();
             }
-
+        } else {
+            $result = $wordRepository->findAll();
+            $pagination = $paginator->paginate(
+                $result,
+                $request->query->getInt('page', 1),
+                10
+            );
         }
 
+        $pagination = $paginator->paginate(
+            $result,
+            $request->query->getInt('page', 1),
+            10
+        );
 
+    
         return $this->render('dictionnary/newCategorie.html.twig', [
             'form' => $form,
             'words' => $result,
+            'pagination' => $pagination,
         ]);
     }
 

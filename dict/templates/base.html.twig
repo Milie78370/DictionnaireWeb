@@ -13,6 +13,7 @@
 
       <!-- Google Fonts -->
       <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+      <link rel="stylesheet" href="assets/css/style.css">
 
       <!-- Vendor CSS Files -->
       <link href="assets/vendor/aos/aos.css" rel="stylesheet">
@@ -23,47 +24,52 @@
       <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
       <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
 
-      <link href="assets/css/style.css" rel="stylesheet">
-      <link href="assets/css/userFormStyle.css" rel="stylesheet">
+      <!--Style pour le font des polices-->
+      <link rel="preconnect" href="https://fonts.googleapis.com">
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+      <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
+      <link rel="preconnect" href="https://fonts.googleapis.com">
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+      <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&family=EB+Garamond:ital@0;1&display=swap" rel="stylesheet">
     </head>
 
     <body>
-        <nav class="navbar navbar-light py-3 px-0 overflow-hidden">
-            <div class="container px-md-5">
-                <div class="col-4">
-                    <div class="d-none d-lg-flex justify-content-end position-relative z-index-1">
-                        <div class="d-flex gap-3 align-items-start"><a class="mb-0 ms-auto text-warning fs-0 fw-bold text-uppercase" href="{{ path('app_login') }}">Login Now</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </nav>
-         <!-- ======= Header ======= -->
-          <header id="header" class="fixed-top d-flex align-items-center">
-            <div class="container d-flex align-items-center justify-content-between">
+        <header id="header" class="fixed-top d-flex align-items-center">
+          <div class="container d-flex align-items-center justify-content-between">
 
+            <div class="container d-flex align-items-center justify-content-between">
               <div class="logo">
                 <img src="assets/img/awalappLogo.png">
               </div>
-
             </div>
-          </header>
 
-          {% block body %}{% endblock %}
+            <nav id="navbar" class="navbar">
+              <ul>
+                <li><a class="nav-link scrollto active" href="{{ path('HomePage') }}">Home</a></li>
+                 <li><a class="nav-link scrollto active" href="{{ path('app_dictionnary') }}">Dictionnaire</a></li>
+                <li><a class="getstarted scrollto" href="{{ path('app_login') }}">Se Connecter</a></li>
+                <li><a class="getstarted scrollto" href="{{ path('app_registerUser') }}">S'inscrire</a></li>
+              </ul>
+              <i class="bi bi-list mobile-nav-toggle"></i>
+            </nav>
+          </div>
+      </header>
+
+      {% block body %}{% endblock %}
 
 
-        <footer id="footer">
-            <div class="container">
-              <div class="row d-flex align-items-center">
-                <div class="col-lg-6 text-lg-left text-center">
-                  <div class="copyright">
-                    &copy; Copyright <strong>Emilie - Melissa</strong>. Tous droits réservés
-                  </div>
+      <footer id="footer">
+          <div class="container">
+            <div class="row d-flex align-items-center">
+              <div class="col-lg-6 text-lg-left text-center">
+                <div class="copyright">
+                  &copy; Copyright <strong>Emilie - Melissa</strong>. Tous droits réservés
                 </div>
-
               </div>
+
             </div>
-          </footer><!-- End Footer -->
+          </div>
+      </footer><!-- End Footer -->
 
 
         {#Les scripts javascripts#}
