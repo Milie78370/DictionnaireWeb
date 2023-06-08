@@ -28,21 +28,22 @@ class ServiceController extends AbstractController
 
         return null;
     }
+
     #[Route('/randomWordService', name:'randomWord', methods:['GET'])]
     public function getRandomWord(): Response
     {
         $dictionary = $this->downloadDictionary();
-        $words = json_decode($dictionary, true);
+        $wordsArray = json_decode($dictionary, true);
 
-        // Vérifier si le dictionnaire est valide et contient des mots
-        if (is_array($words) && count($words) > 0) {
-            $randomIndex = array_rand($words);
-            $randomWord = $words[$randomIndex];
+        if (is_array($wordsArray) && count($wordsArray) > 0) {
+            $randomKey = array_rand($wordsArray['hydra:member']);
+            $randomWord = $wordsArray['hydra:member'][$randomKey];
         } else {
             $randomWord = 'No word found';
         }
 
-        return new Response($randomWord);
+
+        return new Response(json_encode($randomWord), 200, ['Content-Type' => 'application/json']);
     }
 
     #[Route('/service', name: 'app_service')]
