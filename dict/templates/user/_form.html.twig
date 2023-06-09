@@ -1,25 +1,33 @@
-{% extends 'base.html.twig' %}
 
 {% block title %}Inscription{% endblock %}
 
 {% block body %}
-        <div class="login-box">
-            {{ form_start(form) }}
-                <div class="user-box">
-                    <div class="form-group">
-                        {{ form_row(form.email, {'attr': {'class': 'form-control'}}) }}
-                    </div>
-                </div>
+<section class="vh-100">
+    <div class="allFormClass">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
+                {{ form_start(form, {'attr': {'class': 'border p-4 rounded', 'method': 'POST'}}) }}
 
-                <div class="user-box">
-                    <div class="form-group">
-                        {{ form_row(form.password, {'attr': {'class': 'form-control'}}) }}
-                    </div>
-                </div>
+                    <h1 class="inscriptionText">Inscription</h1>
 
-                <div class="form-group">
-                    <button type="submit" class="btn btn-primary btn-block"> S'inscrire </button>
-                </div>
-            {{ form_end(form) }}
+                    <div class="form-outline mb-4">
+                        <div class="form-group">
+                            {{ form_row(form.email, {'attr': {'class': 'form-control'}}) }}
+                        </div>
+                    </div>
+
+                    <div class="form-outline mb-4">
+                        <div class="form-group">
+                            {{ form_row(form.password, {'attr': {'class': 'form-control'}}) }}
+                        </div>
+                    </div>
+
+                    <div class="text-center text-lg-start mt-4 pt-2">
+                        <button type="submit" class="btn btn-primary btn-block"> S'inscrire </button>
+                    </div>
+                {{ form_end(form) }}
+            </div>
         </div>
+    </div>
+</section>
 {% endblock %}

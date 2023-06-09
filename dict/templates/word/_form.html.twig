@@ -1,21 +1,54 @@
 
-{{ form_start(form) }}
-    <div class="form-group">
-        {{ form_row(form.def, {'attr': {'class': 'form-control'}}) }}
+{% block title %}Ajout de nouveaux mots{% endblock %}
+
+{% block body %}
+<section class="vh-100">
+    <div class="allFormClass2">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
+                {{ form_start(form, {'attr': {'class': 'border p-4 rounded', 'method': 'POST'}}) }}
+                    
+                    <h3 class="titreWordText">Ajout de nouveaux mots</h3>
+                    
+                    <div class="form-outline mb-4">
+                        <div class="form-group">
+                            {{ form_row(form.inputWord, {'attr': {'class': 'form-control'}}) }}
+                        </div>
+                    </div>
+                    
+                    <div class="form-outline mb-4">
+                        <div class="form-group">
+                            {{ form_row(form.def, {'attr': {'class': 'form-control'}}) }}
+                        </div>
+                    </div>
+
+                    <div class="form-outline mb-4">
+                        <div class="form-group">
+                            {{ form_row(form.wordType, {'attr': {'class': 'form-control'}}) }}
+                        </div>
+                    </div>
+
+                    <div class="form-outline mb-4">
+                        <div class="form-group">
+                            {{ form_row(form.language, {'attr': {'class': 'form-control'}}) }}
+                        </div>
+                    </div>
+
+                    <div class="form-outline mb-4">
+                        <div class="form-group">
+                            {{ form_row(form.groupWord, {'attr': {'class': 'form-control'}}) }}
+                        </div>
+                    </div>
+
+                    <div class="form-outline mb-4">
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary btn-block"> S'inscrire </button>
+                        </div>
+                    </div>
+
+                {{ form_end(form) }}
+            </div>
+        </div>
     </div>
-    <div class="form-group">
-        {{ form_row(form.inputWord, {'attr': {'class': 'form-control'}}) }}
-    </div>
-     <div class="form-group">
-        {{ form_row(form.wordType, {'attr': {'class': 'form-control'}}) }}
-    </div>
-     <div class="form-group">
-        {{ form_row(form.language, {'attr': {'class': 'form-control'}}) }}
-    </div>
-     <div class="form-group">
-        {{ form_row(form.groupWord, {'attr': {'class': 'form-control'}}) }}
-    </div>
-    <div class="form-group">
-        <button type="submit" class="btn btn-primary btn-block"> S'inscrire </button>
-    </div>
-{{ form_end(form) }}
+</section>
+{% endblock %}

@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends 'baseWord.html.twig' %}
 
 {% block title %}New Word{% endblock %}
 
@@ -7,5 +7,4 @@
 
     {{ include('word/_form.html.twig') }}
 
-    <a href="{{ path('app_word_index') }}">back to list</a>
 {% endblock %}
