@@ -3,11 +3,11 @@
 {% block title %}Dict index{% endblock %}
 
 {% block body %}
-    <h1 class="TitreWord">Tous les mots du dictionnaire</h1>
+    <h1 class="TitreWord">Tout le dictionnaire</h1>
 
     <!--Affichage de tous les mots du dictionnaire  -->
     <div class="card border-info mb-3" id="cardToutProd">	
-        <div class='card-header'>Tous les mots du dictionnaire</div>
+        <div class='card-header'>Tous le dictionnaire</div>
             <div class='d-flex-grid'>
                 {% for word in words %}
                         <div class='card'>
@@ -23,7 +23,8 @@
             </div>
         </div>
     </div>
-    
+
+
     <div class="pagination">
         {{ knp_pagination_render(words) }}
     </div>
