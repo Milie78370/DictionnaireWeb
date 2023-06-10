@@ -4,7 +4,8 @@ namespace App\Entity;
 
 use App\Repository\LanguageRepository;
 use Doctrine\ORM\Mapping as ORM;
-
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 
 #[ORM\Entity(repositoryClass: LanguageRepository::class)]
 class Language
@@ -17,9 +18,13 @@ class Language
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
-    #[ORM\ManyToOne(inversedBy: 'language')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?Word $word = null;
+    #[ORM\OneToMany(mappedBy: 'language', targetEntity: Word::class)]
+    private Collection $words;
+
+    public function __construct()
+    {
+        $this->words = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -38,19 +43,34 @@ class Language
         return $this;
     }
 
-    public function getWord(): ?Word
+    /**
+     * @return Collection<int, Word>
+     */
+    public function getWords(): Collection
     {
-        return $this->word;
+        return $this->words;
     }
 
-    public function setWord(?Word $word): self
+    public function addWord(Word $word): self
     {
-        $this->word = $word;
+        if (!$this->words->contains($word)) {
+            $this->words[] = $word;
+            $word->setLanguage($this);
+        }
 
         return $this;
     }
-    public function __toString()
+
+    public function removeWord(Word $word): self
     {
-        return $this->name;
+        if ($this->words->removeElement($word)) {
+            // set the owning side to null (unless already changed)
+            if ($word->getLanguage() === $this) {
+                $word->setLanguage(null);
+            }
+        }
+
+        return $this;
     }
+
 }

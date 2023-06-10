@@ -5,6 +5,5 @@
 {% block body %}
     <h1>Create new Word</h1>
 
-    {{ include('word/_form.html.twig') }}
-
+    {{ include('word/_form.html.twig', {'button_label': 'S inscrire', 'Titre': 'Ajout de nouveaux mots'}) }}
 {% endblock %}

@@ -11,9 +11,10 @@ use App\Repository\WordRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Knp\Component\Pager\PaginatorInterface;
 
+#[Route('/dictionnary')]
 class DictionnaryController extends AbstractController
 {
-    #[Route('/dictionnary', name: 'app_dictionnary', methods: ['GET'])]
+    #[Route('/', name: 'app_dictionnary', methods: ['GET'])]
     public function index(Request $request, WordRepository $wordRepository, PaginatorInterface $paginator): Response
     {
         $query = $wordRepository->findAll();
@@ -28,7 +29,7 @@ class DictionnaryController extends AbstractController
         ]);
     }
 
-    #[Route('/dictSearch', name: 'search', methods: ['GET', 'POST'])]
+    #[Route('/search', name: 'search', methods: ['GET', 'POST'])]
     public function SearchWord(Request $request, WordRepository $wordRepository, PaginatorInterface $paginator): Response
     {
         

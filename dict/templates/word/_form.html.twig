@@ -2,13 +2,13 @@
 {% block title %}Ajout de nouveaux mots{% endblock %}
 
 {% block body %}
-<section class="vh-100">
+<section class="vh-200">
     <div class="allFormClass2">
         <div class="row d-flex justify-content-center align-items-center h-100">
             <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
                 {{ form_start(form, {'attr': {'class': 'border p-4 rounded', 'method': 'POST'}}) }}
                     
-                    <h3 class="titreWordText">Ajout de nouveaux mots</h3>
+                    <h3 class="titreWordText">{{ Titre }}</h3>
                     
                     <div class="form-outline mb-4">
                         <div class="form-group">
@@ -42,7 +42,7 @@
 
                     <div class="form-outline mb-4">
                         <div class="form-group">
-                            <button type="submit" class="btn btn-primary btn-block"> S'inscrire </button>
+                            <button type="submit" class="btn btn-primary btn-block">{{ button_label }}</button>
                         </div>
                     </div>
 
@@ -50,5 +50,12 @@
             </div>
         </div>
     </div>
+
+    <div class="text-center text-lg-start mt-4 pt-2">
+            <p class="newCategorie">Creer une nouvelle catégorie : <a href="{{ path('search') }}"
+                class="link-danger">Créer une nouvelle catégorie</a></p>
+            <p class="newLanguage">Creer une nouvelle langue : <a href="{{ path('newLanguage') }}"
+                class="link-danger">Créer une nouvelle langue</a></p>
+        </div>
 </section>
 {% endblock %}

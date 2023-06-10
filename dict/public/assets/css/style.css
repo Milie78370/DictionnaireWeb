@@ -382,6 +382,7 @@ font-family: 'EB Garamond', serif;
 }
 
 
+
 #hero h2 {
 color: #484848;
 margin-bottom: 50px;
@@ -476,6 +477,21 @@ animation: up-down 2s ease-in-out infinite alternate-reverse both;
 }
 }
 
+.pagination{
+    display: flex;
+    justify-content: center;
+}
+.table{
+    border: 1px solid black;
+    border-radius: 30px;
+}
+.entete{
+    background-color: black;
+}
+.TitreWord{
+    font-family: 'Dancing Script', cursive;
+    font-family: 'EB Garamond', serif;
+}
 table .imageData{
     width: 50%;
     height: 80%;

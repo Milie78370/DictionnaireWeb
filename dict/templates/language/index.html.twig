@@ -1,7 +1,6 @@
-
 {% extends 'baseWord.html.twig' %}
 
-{% block title %}Hello Language Controller!{% endblock %}
+{% block title %}Hello LanguageController!{% endblock %}
 
 {% block body %}
 <section class="vh-100">
@@ -10,10 +9,10 @@
             <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
                 {{ form_start(form, {'attr': {'class': 'border p-4 rounded', 'method': 'POST'}}) }}
                     <div class="form-outline mb-4">
-                        {{ form_row(form.label, {'attr': {'class': 'form-control'}}) }}
+                        {{ form_row(form.name, {'attr': {'class': 'form-control'}}) }}
                     </div>
                     <div class="form-outline mb-4">
-                        <button type="submit" class="btn btn-primary btn-block">Ajouter Langue</button>
+                        <button type="submit" class="btn btn-primary btn-block"> Ajouter </button>
                     </div>
                 {{ form_end(form) }}
             </div>

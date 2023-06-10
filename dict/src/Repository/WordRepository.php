@@ -56,6 +56,23 @@ public function findByWordByUser($value): array
     ;
 }
 
+
+/**
+* @return Word[] Requête permettant de récupérer tous les 
+* les mots du dictionnaire entrés par un utilisateur donné
+*/
+public function findByLanguage($value): array
+{
+    return $this->createQueryBuilder('w')
+        ->leftJoin('w.language ','u')
+        ->andWhere('u.name = :val')
+        ->setParameter('val', $value)
+        ->getQuery()
+        ->getResult()
+    ;
+}
+
+
 /**
 * @return Word[] Requête permettant de récupérer tous les 
 * les mots du dictionnaire entrés par une catégorie donnée 
