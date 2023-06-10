@@ -15,7 +15,6 @@ body {
     width: 450px;
     height: 250px;
     padding: 40px;
-
     transform: translate(-50%, -50%);
     background: rgba(0,0,0,.05);
     box-sizing: border-box;

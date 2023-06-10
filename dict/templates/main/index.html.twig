@@ -3,18 +3,72 @@
 {% block title %}Hello MainController!{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
 
-<div class="example-wrapper">
+<section id="hero" class="d-flex align-items-center">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6 pt-5 pt-lg-0 order-2 order-lg-1 d-flex flex-column justify-content-center">
+          <h1 data-aos="fade-up">Dictionnaire multi-langue</h1>
+          <h2 data-aos="fade-up" data-aos-delay="400">Plongez dans un monde de mots et de traductions avec notre dictionnaire multilingue - Trouvez facilement les équivalents dans différentes langues et élargissez vos horizons linguistiques.</h2>
+        </div>
+        <div class="col-lg-6 order-1 order-lg-2 hero-img" data-aos="fade-left" data-aos-delay="200">
+          <img src="assets/img/book.jpg" class="img-fluid animated" alt="">
+        </div>
+      </div>
+    </div>
+</section>
 
-    
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/Users/EMILIE/Documents/Projet_web_insta/BiblioProjetV1/dict/src/Controller/MainController.php'|file_link(0) }}">src/Controller/MainController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/Users/EMILIE/Documents/Projet_web_insta/BiblioProjetV1/dict/templates/main/index.html.twig'|file_link(0) }}">templates/main/index.html.twig</a></code></li>
-    </ul>
-</div>
+<!-- ======= Word Section ======= -->
+<section id="services" class="services">
+    <div class="container">
+
+    <div class="section-title" data-aos="fade-up">
+        <h2>Word</h2>
+        <p>Voici une selection de certains de nos mots</p>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-0">
+        <div class="icon-box" data-aos="fade-up" data-aos-delay="100">
+            <div class="icon"><img src="assets/img/livres.png" class="img-fluid animated" alt=""></div>
+            <h4 class="title"><a href="">Mot 1</a></h4>
+            <p class="description">definition : Voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi</p>
+            <p class="language">langue :</p>
+            <p class="groupWord">groupeWord :</p>
+        </div>
+        </div>
+
+        <div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-0">
+        <div class="icon-box" data-aos="fade-up" data-aos-delay="200">
+            <div class="icon"><img src="assets/img/livres.png" class="img-fluid animated" alt=""></div>
+            <h4 class="title"><a href="">Mot 2</a></h4>
+            <p class="description">definition : Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore.</p>
+            <p class="language">langue :</p>
+            <p class="groupWord">groupeWord :</p>
+        </div>
+        </div>
+
+        <div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-0">
+        <div class="icon-box" data-aos="fade-up" data-aos-delay="300">
+            <div class="icon"><img src="assets/img/livres.png" class="img-fluid animated" alt=""></div>
+            <h4 class="title"><a href="">Mot 3</a></h4>
+            <p class="description">definition : Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia</p>
+            <p class="language">langue :</p>
+            <p class="groupWord">groupeWord :</p>
+        </div>
+        </div>
+
+        <div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-0">
+        <div class="icon-box" data-aos="fade-up" data-aos-delay="400">
+            <div class="icon"><img src="assets/img/livres.png" class="img-fluid animated" alt=""></div>
+            <h4 class="title"><a href="">Mot 4</a></h4>
+            <p class="description">definition : At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis</p>
+            <p class="language">langue :</p>
+            <p class="groupWord">groupeWord :</p>
+        </div>
+        </div>
+    </div>
+
+    </div>
+</section>
 {% endblock %}

@@ -35,8 +35,9 @@ class Word
     #[Assert\NotBlank(message:"le groupe de mot est obligatoire")]
     private ?string $wordType = null;
 
-    #[ORM\OneToMany(mappedBy: 'word', targetEntity: Language::class)]
-    private Collection $language;
+    #[ORM\ManyToOne(inversedBy: 'words')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Language $language = null;
 
     #[ORM\ManyToOne(inversedBy: 'words')]
     #[ORM\JoinColumn(nullable: false)]
@@ -92,32 +93,15 @@ class Word
         return $this;
     }
 
-    /**
-     * @return Collection<int, Language>
-     */
-    public function getLanguage(): Collection
+    
+    public function getLanguage(): ?Language
     {
         return $this->language;
     }
 
-    public function addLanguage(Language $language): self
+    public function setLanguage(?Language $language): self
     {
-        if (!$this->language->contains($language)) {
-            $this->language->add($language);
-            $language->setWord($this);
-        }
-
-        return $this;
-    }
-
-    public function removeLanguage(Language $language): self
-    {
-        if ($this->language->removeElement($language)) {
-            // set the owning side to null (unless already changed)
-            if ($language->getWord() === $this) {
-                $language->setWord(null);
-            }
-        }
+        $this->language = $language;
 
         return $this;
     }

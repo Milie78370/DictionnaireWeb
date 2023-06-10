@@ -53,9 +53,7 @@ public function filterWordByCategorie(): array
     ;
 }
 
-//    /**
-//     * @return GroupWord[] Returns an array of GroupWord objects
-//     */
+
 //    public function findByExampleField($value): array
 //    {
 //        return $this->createQueryBuilder('g')

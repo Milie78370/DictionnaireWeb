@@ -7,6 +7,8 @@ use App\Entity\Word;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\Language;
 use App\Form\WordType;
+use App\Repository\GroupWordRepository;
+use App\Repository\LanguageRepository;
 use App\Repository\WordRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -32,6 +34,8 @@ class WordController extends AbstractController
         ]);
     }
 
+
+
     #[Route('/new', name: 'app_word_new', methods: ['GET', 'POST'])]
     public function new(Request $request, WordRepository $wordRepository, EntityManagerInterface $entityManager): Response
     {
@@ -42,37 +46,27 @@ class WordController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $word->setUser($this->getUser());
         
-            // Récupérer le champ spécifique du choix de langue
-            $selectedLanguage = $form->get('language')->getData();
-            // Vérifier si la langue existe déjà dans la base de données
-            $language = $entityManager->getRepository(Language::class)->findOneBy(['name' => $selectedLanguage]);
-
-            if (!$language) {
-                // La langue n'existe pas, créer un nouvel objet Language
-                $language = new Language();
-                $language->setName($selectedLanguage);
-                $entityManager->persist($language);
-            }
-            $word->addLanguage($language);
-
-            $selectedgroupWord = $form->get('groupWord')->getData();
-            // Vérifier si la catégorie existe déjà dans la base de données
-            $groupWord = $entityManager->getRepository(GroupWord::class)->findOneBy(['label' => $selectedgroupWord]);
-
-            if (!$groupWord) {
-                // La catégorie n'existe pas, créer un nouvel objet GroupWord
-                $groupWord = new GroupWord();
-                $groupWord->setLabel($selectedgroupWord);
-                $entityManager->persist($groupWord);
-            }
+            // Récupérer le champ spécifique du choix de langue + vérification si la langue existe déjà dans la base de données
+            $selectedLanguage = $form->get('language')->getViewData();
+            $language = $entityManager->getRepository(Language::class)->findOneBy(['id' => $selectedLanguage]);
+           
+            $word->setLanguage($language);
+            $language->addWord($word);
+           
+            // Récupérer le champ spécifique du choix de groupe word + Vérifier si la catégorie existe déjà dans la base de données
+            $selectedgroupWord = $form->get('groupWord')->getViewData();
+            $groupWord = $entityManager->getRepository(GroupWord::class)->findOneBy(['id' => $selectedgroupWord]);
+           
             $word->setGroupWord($groupWord);
+            $groupWord->addWord($word);
 
             $wordRepository->save($word, true);
+            
             $this->addFlash('success', 'Votre mot a été ajouté');
             return $this->redirectToRoute('app_word_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->renderForm('word/new.html.twig', [
+      return $this->renderForm('word/new.html.twig', [
             'word' => $word,
             'form' => $form,
         ]);

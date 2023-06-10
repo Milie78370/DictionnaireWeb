@@ -1,43 +1,51 @@
-{% extends 'base.html.twig' %}
+{% extends 'baseDictionnary.html.twig' %}
 {% block title %}Dict index{% endblock %}
 
 {% block body %}
-    <h1>Word index</h1>
+    <h1 class="TitreWord">Rechercher par filtrage</h1>
 
-    {{ form_start(form) }}
-        <div class="form-group">
-            {{ form_row(form.def, {'attr': {'class': 'form-control'}}) }}
+    <!-- Creation d'un formulaire  -->
+    <div class="filtrage">
+        <i class="fa-solid fa-filter" id="filter"> Filtrer et trier</i>
+        <div class="container" id="form" hidden>
+            {{ form_start(form, {'method': 'POST', 'attr': {'id': 'formF', 'class': 'd-flex'}}) }}
+                    <div class="form-group">
+                        {{ form_row(form.def, {'attr': {'class': 'form-control'}}) }}
+                    </div>
+                    <div class="form-group">
+                        {{ form_row(form.groupWord, {'attr': {'class': 'form-control'}}) }}
+                    </div>
+
+                    <button class="btn btn-primary"  id="btnrecherche" type="submit" name="recherche">Rechercher</button>
+            {{ form_end(form) }}	
         </div>
-        <div class="form-group">
-            <button type="submit" class="btn btn-primary btn-block"> Rechercher </button>
+    </div>
+
+
+    <!--Affichage de tous les mots du dictionnaire entrés par l'utiisateur pour le filtrage   -->
+    <div class="card border-info mb-3" id="cardToutProd">	
+        <div class='card-header'>Tous les recherches en filtrant</div>
+            <div class='d-flex-grid'>
+                {% for word in pagination %}
+                        <div class='card'>
+                            <div class="card-body">
+                                    <h5 class='card-title'>{{ word.def }}</h5>
+                                    <p class='card-text'>{{ word.inputWord }}</p>
+                                    <p class='card-text'>{{ word.wordType }}</p>
+                            </div>
+                        </div>
+                {% else %}
+                    <h3>no records found</h3>
+                {% endfor %}
+            </div>
         </div>
-    {{ form_end(form) }}
+    </div>
 
-
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Def</th>
-                <th>InputWord</th>
-                <th>WordType</th>
-            </tr>
-        </thead>
-        <tbody>
-        
-        {% for word in words %}
-            <tr>
-                <td>{{ word.def }}</td>
-                <td>{{ word.inputWord }}</td>
-                <td>{{ word.wordType }}</td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="5">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <a href="{{ path('app_dictionnary') }}">Voir tout le dictionnaire</a>
+    <nav aria-label="Page navigation example">
+        <ul class="pagination">
+            {{ knp_pagination_render(pagination) }}
+        </ul>
+    </nav>
+    
 
 {% endblock %}

@@ -20,21 +20,21 @@ class WordType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('def')
-            ->add('inputWord', TextareaType::class, [
+            ->add('inputWord')
+            ->add('def', TextareaType::class, [
                 'label' => 'Définition du mot',
                 'required' => false,
                 'attr' => [
                     'placeholder' => 'Entrez votre mot',
                     'rows' => 5
-                ],
-            ])
+            ]])
             ->add('wordType')
             ->add('language', EntityType::class, [
                 'class' => Language::class,
                 'label' => 'Language: ',
                 'placeholder' => 'Choisir une Language',
                 'required' => false,
+                'choice_label' => 'name',
                 'query_builder' => function(LanguageRepository $repo) {
                     return  $repo->createQueryBuilder('w')
                         ->distinct()

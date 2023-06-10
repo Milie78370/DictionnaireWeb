@@ -27,7 +27,8 @@ class AddUserCommand extends Command
 {
 
     private $userRepository;
-
+    private $passwordHasher;
+    
     public function __construct(UserRepository $userRepository, UserPasswordHasherInterface $passwordHasher)
     {
         $this->userRepository = $userRepository;

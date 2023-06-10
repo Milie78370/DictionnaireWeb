@@ -1,11 +1,11 @@
-{% extends 'base.html.twig' %}
+{% extends 'baseWord.html.twig' %}
 
 {% block title %}Edit Word{% endblock %}
 
 {% block body %}
     <h1>Edit Word</h1>
 
-    {{ include('word/_form.html.twig', {'button_label': 'Update'}) }}
+    {{ include('word/_form.html.twig', {'button_label': 'Mettre à jour', 'Titre': 'Mettre à jour votre mot'}) }}
 
     <a href="{{ path('app_word_index') }}">back to list</a>
 

@@ -1,0 +1,22 @@
+{% extends 'baseWord.html.twig' %}
+
+{% block title %}Hello LanguageController!{% endblock %}
+
+{% block body %}
+<section class="vh-100">
+    <div class="allFormClass">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
+                {{ form_start(form, {'attr': {'class': 'border p-4 rounded', 'method': 'POST'}}) }}
+                    <div class="form-outline mb-4">
+                        {{ form_row(form.name, {'attr': {'class': 'form-control'}}) }}
+                    </div>
+                    <div class="form-outline mb-4">
+                        <button type="submit" class="btn btn-primary btn-block"> Ajouter </button>
+                    </div>
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
