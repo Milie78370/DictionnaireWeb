@@ -46,8 +46,12 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
             return new RedirectResponse($targetPath);
         }
 
-        // For example:
-        echo "redirection vers homePage";
+        // redirection vers le dictionnaire si rôle user
+        $user = $token->getUser();
+        if (in_array("ROLE_USER", $user->getRoles())) {
+            return new RedirectResponse($this->urlGenerator->generate('app_dictionnary'));
+        }
+        
         return new RedirectResponse($this->urlGenerator->generate('app_word_index'));
     }
 

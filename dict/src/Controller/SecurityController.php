@@ -21,12 +21,10 @@ class SecurityController extends AbstractController
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
         // Redirection vers la page homepage si l'utilisateur est connecté
-        if ($this->getUser() && $this->isGranted('ROLE_USER')) {
+        if ($this->getUser()) {
             return $this->redirectToRoute('HomePage', [], Response::HTTP_SEE_OTHER);
-        } else if ($this->getUser() && $this->isGranted('ROLE_ADMIN')){
-            return $this->redirectToRoute('search', [], Response::HTTP_SEE_OTHER);
         }
-
+       
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();
         // last username entered by the user
