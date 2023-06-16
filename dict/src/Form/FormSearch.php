@@ -16,7 +16,7 @@ class FormSearch extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('def', TextType::class, [
+            ->add('inputWord', TextType::class, [
                 'label' => 'Barre de recherche: ',
                 'required' => false,
                 'attr' => [

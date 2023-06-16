@@ -117,7 +117,7 @@ public function findWord($value): array
 {
     return $this->createQueryBuilder('w')
         ->orderBy('w.id', 'ASC')
-        ->orWhere('w.def =:val')
+        ->orWhere('w.inputWord =:val')
         ->setParameter('val', $value)
         ->setMaxResults(10)
         ->getQuery()

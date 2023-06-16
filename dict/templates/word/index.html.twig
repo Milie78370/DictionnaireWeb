@@ -22,8 +22,8 @@
                 <td>{{ word.def }}</td>
                 <td>{{ word.wordType }}</td>
                 <td>
-                    <a href="{{ path('app_word_show', {'id': word.id}) }}">show</a>
-                    <a href="{{ path('app_word_edit', {'id': word.id}) }}">edit</a>
+                    <img class="showImage" src="{{ asset('assets/img/show.png') }}"><a href="{{ path('app_word_show', {'id': word.id}) }}">Show</a>
+                    <img class="editImage" src="{{ asset('assets/img/edit.png') }}"><a href="{{ path('app_word_edit', {'id': word.id}) }}">Edit</a>
                 </td>
                 <td>
                     <form method="post" action="{{ path('app_word_delete', {'id': word.id}) }}" onsubmit="return confirm('Are you sure you want to delete this item?');">

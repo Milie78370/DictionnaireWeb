@@ -42,7 +42,7 @@ class DictionnaryController extends AbstractController
 
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $data = $form->get('def')->getData();
+            $data = $form->get('inputWord')->getData();
             $dataCategorie = $form->get('groupWord')->getData();
             
             if(!empty($data)){
