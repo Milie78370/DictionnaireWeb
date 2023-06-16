@@ -2,42 +2,34 @@
 
 namespace App\Entity;
 
-use ApiPlatform\Metadata\ApiResource;
 use App\Repository\WordRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Serializer\Annotation\Groups;
-use Symfony\Component\Validator\Constraints as Assert;
+use ApiPlatform\Metadata\ApiResource;
+#[ApiResource]
 
 #[ORM\Entity(repositoryClass: WordRepository::class)]
-#[ApiResource]
 class Word
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Groups("post:read")]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups("post:read")]
-    #[Assert\NotBlank(message:"La definition du mot est obligatoire")]
     private ?string $def = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups("post:read")]
-    #[Assert\NotBlank(message:"le mot dans le dictionnaire est obligatoire")]
     private ?string $inputWord = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups("post:read")]
-    #[Assert\NotBlank(message:"le groupe de mot est obligatoire")]
     private ?string $wordType = null;
 
     #[ORM\ManyToOne(inversedBy: 'words')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Language $language = null;
+
 
     #[ORM\ManyToOne(inversedBy: 'words')]
     #[ORM\JoinColumn(nullable: false)]
@@ -47,10 +39,10 @@ class Word
     #[ORM\JoinColumn(nullable: false)]
     private ?GroupWord $groupWord = null;
 
-    public function __construct()
-    {
-        $this->language = new ArrayCollection();
-    }
+    #[ORM\ManyToOne(inversedBy: 'wordLink')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Traduction $traduction = null;
+
 
     public function getId(): ?int
     {
@@ -93,7 +85,7 @@ class Word
         return $this;
     }
 
-    
+
     public function getLanguage(): ?Language
     {
         return $this->language;
@@ -126,6 +118,18 @@ class Word
     public function setGroupWord(?GroupWord $groupWord): self
     {
         $this->groupWord = $groupWord;
+
+        return $this;
+    }
+
+    public function getTraduction(): ?Traduction
+    {
+        return $this->traduction;
+    }
+
+    public function setTraduction(?Traduction $traduction): self
+    {
+        $this->traduction = $traduction;
 
         return $this;
     }

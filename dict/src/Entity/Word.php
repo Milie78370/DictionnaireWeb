@@ -37,6 +37,10 @@ class Word
     #[ORM\JoinColumn(nullable: false)]
     private ?GroupWord $groupWord = null;
 
+    #[ORM\ManyToOne(inversedBy: 'wordLink')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Traduction $traduction = null;
+
 
     public function getId(): ?int
     {
@@ -112,6 +116,18 @@ class Word
     public function setGroupWord(?GroupWord $groupWord): self
     {
         $this->groupWord = $groupWord;
+
+        return $this;
+    }
+
+    public function getTraduction(): ?Traduction
+    {
+        return $this->traduction;
+    }
+
+    public function setTraduction(?Traduction $traduction): self
+    {
+        $this->traduction = $traduction;
 
         return $this;
     }

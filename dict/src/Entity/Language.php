@@ -21,9 +21,13 @@ class Language
     #[ORM\OneToMany(mappedBy: 'language', targetEntity: Word::class)]
     private Collection $words;
 
+    #[ORM\OneToMany(mappedBy: 'languageTrad', targetEntity: Traduction::class)]
+    private Collection $traductions;
+
     public function __construct()
     {
         $this->words = new ArrayCollection();
+        $this->traductions = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -67,6 +71,36 @@ class Language
             // set the owning side to null (unless already changed)
             if ($word->getLanguage() === $this) {
                 $word->setLanguage(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Traduction>
+     */
+    public function getTraductions(): Collection
+    {
+        return $this->traductions;
+    }
+
+    public function addTraduction(Traduction $traduction): self
+    {
+        if (!$this->traductions->contains($traduction)) {
+            $this->traductions->add($traduction);
+            $traduction->setLanguageTrad($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTraduction(Traduction $traduction): self
+    {
+        if ($this->traductions->removeElement($traduction)) {
+            // set the owning side to null (unless already changed)
+            if ($traduction->getLanguageTrad() === $this) {
+                $traduction->setLanguageTrad(null);
             }
         }
 
