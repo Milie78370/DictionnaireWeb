@@ -381,7 +381,15 @@ font-family: 'EB Garamond', serif;
     font-family: 'EB Garamond', serif;
 }
 
+table .showImage{
+    width: 3%;
+    height: 5%;
+}
 
+table .editImage{
+    width: 2.5%;
+    height: 2.5%;
+}
 
 #hero h2 {
 color: #484848;
