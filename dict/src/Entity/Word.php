@@ -37,10 +37,13 @@ class Word
     #[ORM\JoinColumn(nullable: false)]
     private ?GroupWord $groupWord = null;
 
-    #[ORM\ManyToOne(inversedBy: 'wordLink')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?Traduction $traduction = null;
+    #[ORM\OneToMany(mappedBy: 'wordLink', targetEntity: Traduction::class)]
+    private Collection $traductions;
 
+    public function __construct()
+    {
+        $this->traductions = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -83,7 +86,7 @@ class Word
         return $this;
     }
 
-    
+
     public function getLanguage(): ?Language
     {
         return $this->language;
@@ -120,15 +123,34 @@ class Word
         return $this;
     }
 
-    public function getTraduction(): ?Traduction
+    /**
+     * @return Collection<int, Traduction>
+     */
+    public function getTraductions(): Collection
     {
-        return $this->traduction;
+        return $this->traductions;
     }
 
-    public function setTraduction(?Traduction $traduction): self
+    public function addTraduction(Traduction $traduction): self
     {
-        $this->traduction = $traduction;
+        if (!$this->traductions->contains($traduction)) {
+            $this->traductions->add($traduction);
+            $traduction->setWordLink($this);
+        }
 
         return $this;
     }
+
+    public function removeTraduction(Traduction $traduction): self
+    {
+        if ($this->traductions->removeElement($traduction)) {
+            // set the owning side to null (unless already changed)
+            if ($traduction->getWordLink() === $this) {
+                $traduction->setWordLink(null);
+            }
+        }
+
+        return $this;
+    }
+
 }

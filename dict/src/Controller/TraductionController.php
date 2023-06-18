@@ -42,19 +42,23 @@ class TraductionController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            // Récupérer le champ spécifique du choix de langue + vérification si la langue existe déjà dans la base de données
-            $selectedLanguage = $form->get('language')->getViewData();
-            $language = $entityManager->getRepository(Language::class)->findOneBy(['id' => $selectedLanguage]);
-
-            $trad->setLanguageTrad($language);
-            $language->addTraduction($trad);
 
             // Récupérer le champ spécifique du choix de groupe word + Vérifier si la catégorie existe déjà dans la base de données
             $selectedgroupWord = $form->get('wordLink')->getViewData();
             $word = $entityManager->getRepository(Word::class)->findOneBy(['id' => $selectedgroupWord]);
 
-            $trad->addWordLink($word);
-            $word->setTraduction($trad);
+            $trad->setWordLink($word);
+            $word->addTraduction($trad);
+
+            // Récupérer le champ spécifique du choix de langue + vérification si la langue existe déjà dans la base de données
+            $selectedLanguage = $form->get('language')->getViewData();
+            $language = $entityManager->getRepository(Language::class)->findOneBy(['id' => $selectedLanguage]);
+
+            $trad->setLanguageTrad($language);
+            $word->setLanguage($language);
+            $language->addTraduction($trad);
+            $language->addWord($word);
+
 
             $traductionRepository->save($trad, true);
 
