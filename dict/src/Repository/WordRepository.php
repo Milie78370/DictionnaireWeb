@@ -40,90 +40,91 @@ class WordRepository extends ServiceEntityRepository
     }
 
 
-/**
-* @return Word[] Requête permettant de récupérer tous les 
-* les mots du dictionnaire entrés par un utilisateur donné
-*/
-public function findByWordByUser($value): array
-{
-    return $this->createQueryBuilder('w')
-        ->leftJoin('w.user ','u')
-        ->orderBy('u.id', 'ASC')
-        ->where('u.id=:cp')
-        ->setParameter('cp', $value)
-        ->getQuery()
-        ->getResult()
-    ;
-}
+    /**
+     * @return Word[] Requête permettant de récupérer tous les
+     * les mots du dictionnaire entrés par un utilisateur donné
+     */
+    public function findByWordByUser($value): array
+    {
+        return $this->createQueryBuilder('w')
+            ->leftJoin('w.user ','u')
+            ->orderBy('u.id', 'ASC')
+            ->where('u.id=:cp')
+            ->setParameter('cp', $value)
+            ->getQuery()
+            ->getResult()
+            ;
+    }
 
 
-/**
-* @return Word[] Requête permettant de récupérer tous les 
-* les mots du dictionnaire entrés par un utilisateur donné
-*/
-public function findByLanguage($value): array
-{
-    return $this->createQueryBuilder('w')
-        ->leftJoin('w.language ','u')
-        ->andWhere('u.name = :val')
-        ->setParameter('val', $value)
-        ->getQuery()
-        ->getResult()
-    ;
-}
+
+    /**
+     * @return Word[] Requête permettant de récupérer tous les
+     * les mots du dictionnaire entrés par une catégorie donnée
+     */
+    public function findByGroupByCategorie($value): array
+    {
+        return $this->createQueryBuilder('w')
+            ->leftJoin('w.groupWord ','u')
+            ->orderBy('u.id', 'ASC')
+            ->where('u.id=:cp')
+            ->setParameter('cp', $value)
+            ->getQuery()
+            ->getResult()
+            ;
+    }
 
 
-/**
-* @return Word[] Requête permettant de récupérer tous les 
-* les mots du dictionnaire entrés par une catégorie donnée 
-*/
-public function findByGroupByUser($value): array
-{
-    return $this->createQueryBuilder('w')
-        ->leftJoin('w.groupWord ','u')
-        ->orderBy('u.id', 'ASC')
-        ->where('u.id=:cp')
-        ->setParameter('cp', $value)
-        ->getQuery()
-        ->getResult()
-    ;
-}
+    /**
+     * @return Word[] Requête permettant de récupérer tous les
+     * les mots du dictionnaire entrés par une catégorie donnée
+     */
+    public function findByGroupByUserCategorie($value, $categorie): array
+    {
+        return $this->createQueryBuilder('w')
+            ->leftJoin('w.user ','u')
+            ->leftJoin('u.groupWord ','c')
+            ->orderBy('c.id', 'ASC')
+            ->andWhere('u.id=:val')
+            ->andWhere('c.id=:cp')
+            ->setParameter('val', $value)
+            ->setParameter('cp', $categorie)
+            ->getQuery()
+            ->getResult()
+            ;
+    }
 
 
-/**
-* @return Word[] Requête permettant de récupérer tous les 
-* les mots du dictionnaire entrés par une catégorie donnée 
-*/
-public function findByGroupByUserCategorie($value, $categorie): array
-{
-    return $this->createQueryBuilder('w')
-    ->leftJoin('w.user ','u')
-    ->leftJoin('u.groupWord ','c')
-    ->orderBy('c.id', 'ASC')
-    ->andWhere('u.id=:val')
-    ->andWhere('c.id=:cp')
-    ->setParameter('val', $value)
-    ->setParameter('cp', $categorie)
-    ->getQuery()
-    ->getResult()
-;
-}
-
-/**
-* @return Word[] Requête permettant de récupérer tous les 
-* les mots du dictionnaire entrés par un utilisateur donné
-*/
-public function findWord($value): array
-{
-    return $this->createQueryBuilder('w')
-        ->orderBy('w.id', 'ASC')
-        ->orWhere('w.inputWord =:val')
-        ->setParameter('val', $value)
-        ->setMaxResults(10)
-        ->getQuery()
-        ->getResult()
-    ;
-}
+    /**
+     * @return Word[] Requête permettant de récupérer tous les
+     * les mots du dictionnaire entrés par une catégorie donnée
+     */
+    public function findByLanguage($value): array
+    {
+        return $this->createQueryBuilder('w')
+            ->leftJoin('w.language ','u')
+            ->orderBy('u.id', 'ASC')
+            ->where('u.id=:cp')
+            ->setParameter('cp', $value)
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+    /**
+     * @return Word[] Requête permettant de récupérer tous les
+     * les mots du dictionnaire entrés par un utilisateur donné
+     */
+    public function findWord($value): array
+    {
+        return $this->createQueryBuilder('w')
+            ->orderBy('w.id', 'ASC')
+            ->orWhere('w.inputWord =:val')
+            ->setParameter('val', $value)
+            ->setMaxResults(10)
+            ->getQuery()
+            ->getResult()
+            ;
+    }
 
 
 //    public function findOneBySomeField($value): ?Word

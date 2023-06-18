@@ -15,7 +15,7 @@ use Knp\Component\Pager\PaginatorInterface;
 class DictionnaryController extends AbstractController
 {
     #[Route('/', name: 'app_dictionnary', methods: ['GET'])]
-    public function index(Request $request, WordRepository $wordRepository, PaginatorInterface $paginator): Response
+    public function index(Request $request, WordRepository $wordRepository, ServiceController $ServiceController, PaginatorInterface $paginator): Response
     {
         $query = $wordRepository->findAll();
         $pagination = $paginator->paginate(
@@ -32,7 +32,7 @@ class DictionnaryController extends AbstractController
     #[Route('/search', name: 'search', methods: ['GET', 'POST'])]
     public function SearchWord(Request $request, WordRepository $wordRepository, PaginatorInterface $paginator): Response
     {
-        
+
         $word = new Word();
         $form = $this->createForm(FormSearch::class, $word);
         $form->handleRequest($request);
@@ -44,7 +44,8 @@ class DictionnaryController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->get('inputWord')->getData();
             $dataCategorie = $form->get('groupWord')->getData();
-            
+            $languageSearch = $form->get('language')->getData();
+
             if(!empty($data)){
                 // Cas où seulement le champ de recherche est rempli
                 $result = $wordRepository->findWord($data);
@@ -53,8 +54,10 @@ class DictionnaryController extends AbstractController
                 $result = $wordRepository->findByGroupByUserCategorie($data, $dataCategorie);
             } else if(!empty($dataCategorie)){
                 // Cas où seulement le champ de catégorie est rempli
-                echo "je suis dedans";
-                $result = $wordRepository->findByGroupByUser($dataCategorie);
+                $result = $wordRepository->findByGroupByCategorie($dataCategorie);
+            } else if(!empty($languageSearch)){
+                // Cas où seulement le champ de language est rempli
+                $result = $wordRepository->findByLanguage($languageSearch);
             } else {
                 // Cas où aucun champ n'est rempli
                 $result = $wordRepository->findAll();
@@ -74,14 +77,13 @@ class DictionnaryController extends AbstractController
             10
         );
 
-    
+
         return $this->render('dictionnary/newCategorie.html.twig', [
             'form' => $form,
             'words' => $result,
             'pagination' => $pagination,
         ]);
     }
-
 
 
 }
