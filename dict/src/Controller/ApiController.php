@@ -35,17 +35,28 @@ class ApiController extends AbstractController
     #[Route('/dictDownload', name:'downloadJson', methods:['GET'])]
     public function downloadDataAsJson()
     {
+        $homeDirectory = getenv('HOME');
         $data = $this->getData();
+
+        if (empty($homeDirectory)) {
+            // Sur Windows, utilise la variable d'environnement 'USERPROFILE' si 'HOME' n'est pas définie
+            $homeDirectory = getenv('USERPROFILE');
+            $downloadsDirectory = 'Downloads\\';
+        } else {
+            // Sur macOS et Linux, utilise le répertoire 'Downloads' directement
+            $downloadsDirectory = 'Downloads/';
+        }
+        $filePath = $homeDirectory . '/' . $downloadsDirectory . 'dataDict.json';
 
         if ($data !== null) {
             $jsonData = json_encode($data);
 
-            // téléchargement en local dans le dossier de téléchargement du bureau
-            $filePath = $_SERVER['HOME'] . '/Downloads/dataDict.json';
+            $response = new Response($jsonData);
+            $response->headers->set('Content-Type', 'application/json');
+            $response->headers->set('Content-Disposition', 'attachment; filename="dataDict.json"');
 
-            file_put_contents($filePath, $jsonData);
+            return $response;
 
-            return $this->redirectToRoute('app_dictionnary');
         }
     }
 
