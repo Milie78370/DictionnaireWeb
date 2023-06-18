@@ -16,6 +16,7 @@
                                     <p class='card-text'>{{ word.def }}</p>
                                     <p class='card-text'>{{ word.wordType }}</p>
                             </div>
+                            <a href="{{ path('showWord', {'id': word.id}) }}">Show</a>
                         </div>
                 {% else %}
                     <h3>no records found</h3>
@@ -23,7 +24,6 @@
             </div>
         </div>
     </div>
-    
     <div class="pagination">
         {{ knp_pagination_render(words) }}
     </div>
@@ -33,6 +33,7 @@
 
      <h1 class="TitreWord">Mot aléatoire</h1>
      <a href="{{ path('randomWord') }}" class="btn btn-primary">Mot aléatoire</a>
+
 
 
 
