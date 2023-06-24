@@ -386,6 +386,28 @@ table .showImage{
     height: 5%;
 }
 
+.iconBook{
+    width: 20%;
+    height: 5%;
+    padding-bottom: 2%;
+}
+
+#cardWord{
+    padding: 30px;
+    position: relative;
+    overflow: hidden;
+    background: #fff;
+    box-shadow: 0 0 29px 0 rgba(68, 88, 144, 0.12);
+    transition: all 0.3s ease-in-out;
+    border-radius: 8px;
+    z-index: 1;
+}
+
+.iconBook2{
+    width: 3%;
+    height: 5%;
+}
+
 table .editImage{
     width: 2.5%;
     height: 2.5%;
@@ -489,21 +511,41 @@ animation: up-down 2s ease-in-out infinite alternate-reverse both;
     display: flex;
     justify-content: center;
 }
-.table{
-    border: 1px solid black;
-    border-radius: 30px;
-}
+
 .entete{
     background-color: black;
 }
 .TitreWord{
     font-family: 'Dancing Script', cursive;
     font-family: 'EB Garamond', serif;
+    padding-top: 2%;
 }
+#tableWord{
+    padding: 30px;
+    position: relative;
+    overflow: hidden;
+    background: #fff;
+    box-shadow: 0 0 29px 0 rgba(68, 88, 144, 0.12);
+    transition: all 0.3s ease-in-out;
+    border-radius: 20px;
+    z-index: 1; 
+}
+#formWord{
+    padding: 30px;
+    position: relative;
+    overflow: hidden;
+    background: #fff;
+    box-shadow: 0 0 29px 0 rgba(68, 88, 144, 0.12);
+    transition: all 0.3s ease-in-out;
+    border-radius: 20px;
+    z-index: 1; 
+}
+
 table .imageData{
     width: 50%;
     height: 80%;
 }
+
 
 table h5{
     display: flex;
@@ -517,13 +559,28 @@ table h5{
 --------------------------------------------------------------*/
 
 .allFormClass {
-    padding-top: 10%;
+    padding-top: 2%;
 }
 
 .allFormClass2 {
     padding-top: auto;
 }
+.actions{
+    padding-right: 2%;
+    padding-bottom: 1%;
+}
 
+
+#formCategorie{
+    padding: 30px;
+    position: relative;
+    overflow: hidden;
+    background: #fff;
+    box-shadow: 0 0 29px 0 rgba(68, 88, 144, 0.12);
+    transition: all 0.3s ease-in-out;
+    border-radius: 20px;
+    z-index: 1; 
+}
 
 section {
 padding: 60px 0;

@@ -1,9 +1,79 @@
-{% extends 'base.html.twig' %}
+{% extends 'baseWordDict.html.twig' %}
 
 {% block body %}
-<h1>Random Word</h1>
-<p><strong>Word:</strong> {{ randomWord.inputWord }}</p>
-<p><strong>Definition:</strong> {{ randomWord.def }}</p>
-<p><strong>Word Type:</strong> {{ randomWord.wordType }}</p>
+ <!--Affichage d'un les mots du dictionnaire aléatoirement   -->
+    
+    <div class="section-title" data-aos="fade-up">
+        <h2 class="TitreWord">Affichage d'un mot aléatoire</h2>
+        <p>informations sur le mot: {{ outputField['inputWord'] }}</p>
+    </div>
+
+     <div class="card border-info mb-3" id="cardToutProd">	
+        <div class='card-header'>Détails d'un mot tiré aléatoirement : {{ outputField['inputWord'] }}</div>
+            <div class='d-flex-grid'>
+                    <div class='card'>
+                        <div class="card-body" >
+                            <table class="table table-bordered" id="tableWord">
+                                <tbody>
+                                    <tr>
+                                        <th>InputWord</th>
+                                        <td>{{ outputField['inputWord'] }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Def</th>
+                                        <td>{{ outputField['def'] }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>WordType</th>
+                                        <td>{{ outputField['wordType']}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Language</th>
+                                        <td>{{ outputField['languageName']}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <h6 class='card-title'>Les différents traductions du mot !</h6>
+                        <div class="card-body">
+                             <table class="table table-bordered" id="tableWord" >
+                                <thead class="table-primary">
+                                    <tr>
+                                        <th>Translated Word</th>
+                                        <th>Translated Word Definition</th>
+                                        <th>Translated Language</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    
+                                {% for element in tableau %}
+                                        <tr>
+                                            <td>{{ element.translatedWord }}</td>
+                                            <td>{{ element.translatedWordDef }}</td>
+                                            <td>{{ element.translatedLang }}</td>
+                                        </tr>
+                                    {% else %}
+                                        <tr>
+                                            <td colspan="5">
+                                                <div class="row d-flex justify-content-center align-items-center h-100">
+                                                    <h5>Pas de traductions trouvées</h5>
+                                                    <img src="{{ asset('assets/img/dataNotFound.jpg') }}" class="imageData" alt="Pour les informations non trouvés">
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+         </div>
+    </div>
+
+
+
+    <a href="{{ path('app_dictionnary') }}">Retour au dictionnaire</a>
 
 {% endblock %}

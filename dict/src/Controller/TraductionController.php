@@ -14,10 +14,11 @@ use App\Form\TraductionType;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\Language;
 
+#[Route('/traduction')]
 class TraductionController extends AbstractController
 {
 
-    #[Route('/traduction', name: 'app_traduction', methods: ['GET'])]
+    #[Route('/', name: 'app_traduction', methods: ['GET'])]
     public function index(Request $request, TraductionRepository $traductionRepository, PaginatorInterface $paginator): Response
     {
         $query = $traductionRepository->findTraduction();

@@ -2,8 +2,12 @@
 {% block title %}Dict index{% endblock %}
 
 {% block body %}
-    <h1 class="TitreWord">Rechercher par filtrage</h1>
 
+    <div class="section-title" data-aos="fade-up">
+        <h2 class="TitreWord">La recherche de mots</h2>
+        <p>Rechercher par filtrage</p>
+    </div>
+    
     <!-- Creation d'un formulaire  -->
     <div class="filtrage">
         <i class="fa-solid fa-filter" id="filter"> Filtrer et trier</i>
@@ -15,7 +19,9 @@
                     <div class="form-group">
                         {{ form_row(form.groupWord, {'attr': {'class': 'form-control'}}) }}
                     </div>
-
+                    <div class="form-group">
+                        {{ form_row(form.language, {'attr': {'class': 'form-control'}}) }}
+                    </div>
                     <button class="btn btn-primary"  id="btnrecherche" type="submit" name="recherche">Rechercher</button>
             {{ form_end(form) }}	
         </div>
@@ -24,16 +30,23 @@
 
     <!--Affichage de tous les mots du dictionnaire entrés par l'utiisateur pour le filtrage   -->
     <div class="card border-info mb-3" id="cardToutProd">	
-        <div class='card-header'>Tous les recherches en filtrant</div>
+        <div class='card-header'>Toutes les recherches par filtrage</div>
             <div class='d-flex-grid'>
                 {% for word in pagination %}
-                        <div class='card'>
-                            <div class="card-body">
-                                    <h5 class='card-title'>{{ word.inputWord }}</h5>
-                                    <p class='card-text'>{{ word.def }}</p>
-                                    <p class='card-text'>{{ word.wordType }}</p>
+                        <div class='card' id="cardWord">
+                            <div class="icon-box" data-aos="fade-up" data-aos-delay="100">
+                                <div class="card-body">
+                                        <div class="icon"><img src="{{ asset('assets/img/livres.png') }}" class="iconBook" alt=""></div>
+                                        <h5 class='card-title'>Mot entré: {{ word.inputWord }}</h5>
+                                        <p class='card-text'>Définition: {{ word.def }}</p>
+                                        <p class='card-text'>Type de mot: {{ word.groupWord }}</p>
+                                </div>
+                                <a href="{{ path('showWordTest', {'id': word.id}) }}">
+                                    <button type="submit" class="btn btn-primary">Voir détail du mot </button>
+                                </a>
                             </div>
                         </div>
+                        
                 {% else %}
                     <h3>no records found</h3>
                 {% endfor %}
@@ -41,11 +54,9 @@
         </div>
     </div>
 
-    <nav aria-label="Page navigation example">
-        <ul class="pagination">
-            {{ knp_pagination_render(pagination) }}
-        </ul>
-    </nav>
+    <div class="pagination">
+        {{ knp_pagination_render(pagination,'@KnpPaginator/Pagination/twitter_bootstrap_v4_pagination.html.twig') }}
+    </div>
     
 
 {% endblock %}
