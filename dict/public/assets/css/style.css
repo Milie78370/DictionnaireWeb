@@ -348,7 +348,6 @@ display: block;
 }
 
 
-
 /*--------------------------------------------------------------
 # Hero Section
 --------------------------------------------------------------*/
@@ -561,6 +560,10 @@ table h5{
 .allFormClass {
     padding-top: 2%;
 }
+.allFormClass3 {
+    padding-top: 10%;
+}
+
 
 .allFormClass2 {
     padding-top: auto;
