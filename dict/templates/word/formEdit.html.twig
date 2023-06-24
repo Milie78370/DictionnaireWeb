@@ -1,0 +1,60 @@
+
+{% block title %}Ajout de nouveaux mots{% endblock %}
+
+{% block body %}
+
+
+<section>
+    <div class="allFormClass2">
+        <div class="section-title" data-aos="fade-up">
+            <h2 class="TitreWord">{{ Titre }}</h2>
+            <p>formulaire pour l'ajout de mots</p>
+        </div>
+
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
+                {{ form_start(form, {'attr': {'class': 'border p-4 rounded','id': 'formWord', 'method': 'POST'}}) }}
+                    
+                    <div class="form-outline mb-4">
+                        <div class="form-group">
+                            {{ form_row(form.inputWord, {'attr': {'class': 'form-control'}}) }}
+                        </div>
+                    </div>
+                    
+                    <div class="form-outline mb-4">
+                        <div class="form-group">
+                            {{ form_row(form.def, {'attr': {'class': 'form-control'}}) }}
+                        </div>
+                    </div>
+
+                    <div class="form-outline mb-4">
+                        <div class="form-group">
+                            {{ form_row(form.wordType, {'attr': {'class': 'form-control'}}) }}
+                        </div>
+                    </div>
+
+                    <div class="form-outline mb-4">
+                        <div class="form-group">
+                            {{ form_row(form.language, {'attr': {'class': 'form-control'}}) }}
+                        </div>
+                    </div>
+
+                    <div class="form-outline mb-4">
+                        <div class="form-group">
+                            {{ form_row(form.groupWord, {'attr': {'class': 'form-control'}}) }}
+                        </div>
+                    </div>
+
+                    <div class="form-outline mb-4">
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary btn-block">{{ button_label }}</button>
+                        </div>
+                    </div>
+
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+
+</section>
+{% endblock %}
