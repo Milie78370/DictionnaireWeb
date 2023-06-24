@@ -83,61 +83,70 @@ class ServiceController extends AbstractController
         return null;
     }
 
-    #[Route('/showWord', name:'showWord', methods:['GET'])]
-    public function showWord(Request $request): Response
+
+    #[Route('/showWordTest', name:'showWordTest', methods:['GET'])]
+    public function showWordTest(Request $request): Response
     {
-        // récuperation de id du mot
+        // récuperation de id du mot 
         $wordId = $request->query->get('id');
 
         // partie affichage du mot spécifique à partir de l'url de l'api
         $dictionary = $this->getMotspecifique($wordId);
         $wordsArray = json_decode($dictionary, true);
-
+        $tableau = [];
         if (is_array($wordsArray) && count($wordsArray) > 0) {
-            $definition = $wordsArray['def'];
-            $inputWord = $wordsArray['inputWord'];
-            $wordType = $wordsArray['wordType'];
             $languageId = $wordsArray['language'];
             $traductionId = $wordsArray['traductions'];
 
+            $tableau['def'] = $wordsArray['def'];
+            $tableau['inputWord'] = $wordsArray['inputWord'];
+            $tableau['wordType'] = $wordsArray['wordType'];
+
             $regexpL = '/\/api\/languages\/(\d+)/';
             $idL = $this->extractIdUrl($regexpL, $languageId);
-
-
+            
             $ids = [];
+            $tableauT = array();
             foreach ($traductionId as $traduction) {
                 $regexpT = '/\/api\/traductions\/(\d+)/';
                 $idT =  $this->extractIdUrl($regexpT, $traduction);
                 $ids[] = $idT;
-
+    
             }
-
+            
             $languageName = $this->DownloadLanguageName($idL);
-
-            $outputField = "Mot : $inputWord<br>";
-            $outputField .= "Définition : $definition<br>";
-            $outputField .= "Type du mot : $wordType<br>";
-            $outputField .= "Langue : $languageName<br>";
-
+            $tableau['languageName'] =  $languageName ;
 
             foreach ($ids as $id) {
                 $traductionName = $this->GetTraductionWord($id);
                 $data = json_decode($traductionName);
-                $outputField .= "traduction du word : $data->translatedWord.<br>";
-                $outputField .= "traduction definition : $data->def.<br>";
-
                 $idLTrad = $this->extractIdUrl($regexpL, $data->languageTrad);
                 $languageTrad = $this->DownloadLanguageName($idLTrad);
-                $outputField .= "traduction langue : $languageTrad.<br>";
+
+                $tableau['translatedWord'] = $data->translatedWord;
+                $tableau['translatedWordDef'] = $data->def;
+                $tableau['translatedLang'] = $languageTrad;
+
+                $element = array(
+                    'translatedWord' => $data->translatedWord,
+                    'translatedWordDef' => $data->def,
+                    'translatedLang' => $languageTrad
+                );
+                $tableauT[] = $element;
             }
 
         } else {
             $outputField = 'No word found';
         }
 
-
-        return new Response($outputField, 200, ['Content-Type' => 'text/html']);
+      
+     
+        return $this->render('dictionnary/show.html.twig', [
+            'outputField' => $tableau,
+            'tableau' => $tableauT
+        ]);
     }
+
 
 
     #[Route('/randomWordService', name:'randomWord', methods:['GET'])]
@@ -145,37 +154,62 @@ class ServiceController extends AbstractController
     {
         $dictionary = $this->downloadDictionary();
         $wordsArray = json_decode($dictionary, true);
-
+        $tableau = [];
         if (is_array($wordsArray) && count($wordsArray) > 0) {
             $randomKey = array_rand($wordsArray['hydra:member']);
             $randomWord = $wordsArray['hydra:member'][$randomKey];
 
-            $definition = $randomWord['def'];
-            $inputWord = $randomWord['inputWord'];
-            $wordType = $randomWord['wordType'];
             $languageId = $randomWord['language'];
+            $traductionId = $randomWord['traductions'];
 
-            $regexp = '/\/api\/languages\/(\d+)/';
-            preg_match($regexp, $languageId, $matches);
-            $id = $matches[1];
+            $tableau['def'] = $randomWord['def'];
+            $tableau['inputWord'] = $randomWord['inputWord'];
+            $tableau['wordType'] = $randomWord['wordType'];
 
-            $languageName = $this->DownloadLanguageName($id);
+            $regexpL = '/\/api\/languages\/(\d+)/';
+            $idL = $this->extractIdUrl($regexpL, $languageId);
+            
 
-            $outputField = "Mot : $inputWord<br>";
-            $outputField .= "Définition : $definition<br>";
-            $outputField .= "Type du mot : $wordType<br>";
-            //$outputField .= "Langue : $languageId<br>";
-            $outputField .= "Langue : $languageName<br>";
+          
+            foreach ($traductionId as $traduction) {
+                $regexpT = '/\/api\/traductions\/(\d+)/';
+                $idT =  $this->extractIdUrl($regexpT, $traduction);
+                $ids[] = $idT;
+    
+            }
+
+            $languageName = $this->DownloadLanguageName($idL);
+            $tableau['languageName'] =  $languageName;
+
+            $ids = [];
+            $tableauT = array();
+            foreach ($ids as $id) {
+                $traductionName = $this->GetTraductionWord($id);
+                $data = json_decode($traductionName);
+                $idLTrad = $this->extractIdUrl($regexpL, $data->languageTrad);
+                $languageTrad = $this->DownloadLanguageName($idLTrad);
+
+                $tableau['translatedWord'] = $data->translatedWord;
+                $tableau['translatedWordDef'] = $data->def;
+                $tableau['translatedLang'] = $languageTrad;
+
+                $element = array(
+                    'translatedWord' => $data->translatedWord,
+                    'translatedWordDef' => $data->def,
+                    'translatedLang' => $languageTrad
+                );
+                $tableauT[] = $element;
+            }
         } else {
             $outputField = 'No word found';
         }
 
 
-        return new Response($outputField, 200, ['Content-Type' => 'text/html']);
+        return $this->render('dictionnary/random.html.twig', [
+            'outputField' => $tableau,
+            'tableau' => $tableauT
+        ]);
     }
-
-
-
 
     #[Route('/service', name: 'app_service')]
     public function index(): Response

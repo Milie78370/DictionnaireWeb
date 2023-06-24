@@ -1,10 +1,13 @@
-{% extends 'baseWord.html.twig' %}
 
-{% block title %}Hello LanguageController!{% endblock %}
+{% extends 'baseNewLangAndCategories.html.twig' %}
 
 {% block body %}
-<section class="vh-100">
+<section>
     <div class="allFormClass">
+         <div class="section-title" data-aos="fade-up" id="categorieSection">
+            <h2 class="TitreWord">Nouvelle langue</h2>
+            <p>formulaire pour l'ajout d'une nouvelle langue</p>
+        </div>
         <div class="row d-flex justify-content-center align-items-center h-100">
             <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
                 {{ form_start(form, {'attr': {'class': 'border p-4 rounded', 'method': 'POST'}}) }}

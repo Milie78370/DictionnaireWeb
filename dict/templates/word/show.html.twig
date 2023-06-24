@@ -1,11 +1,19 @@
-{% extends 'baseWord.html.twig' %}
-
-{% block title %}Word{% endblock %}
+{% extends 'baseWordDict.html.twig' %}
 
 {% block body %}
-    <h1>Word</h1>
 
-    <table class="table">
+    <div class="section-title" data-aos="fade-up">
+        <h2 class="TitreWord">Affichage d'un mot spécifique</h2>
+        <p>informations sur un de vos mots</p>
+    </div>
+
+    <table class="table table-bordered" id="tableWord">
+        <thead class="table-primary">
+            <tr>
+                <th>Entêtes</th>
+                <th>Informations</th>
+            </tr>
+        </thead>
         <tbody>
             <tr>
                 <th>Id</th>
@@ -26,8 +34,8 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_word_index') }}">back to list</a>
+    <a href="{{ path('app_word_index') }}">Retour dans Mot</a>
 
-    <a href="{{ path('app_word_edit', {'id': word.id}) }}">edit</a>
+    <a href="{{ path('app_word_edit', {'id': word.id}) }}">edition du mot</a>
     
 {% endblock %}

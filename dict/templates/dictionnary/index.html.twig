@@ -3,20 +3,29 @@
 {% block title %}Dict index{% endblock %}
 
 {% block body %}
-    <h1 class="TitreWord">Tous les mots du dictionnaire</h1>
+
+    <div class="section-title" data-aos="fade-up">
+        <h2 class="TitreWord">Le dictionnaire</h2>
+        <p>Tous les mots du dictionnaire </p>
+    </div>
 
     <!--Affichage de tous les mots du dictionnaire  -->
     <div class="card border-info mb-3" id="cardToutProd">	
         <div class='card-header'>Tous les mots du dictionnaire</div>
             <div class='d-flex-grid'>
                 {% for word in words %}
-                        <div class='card'>
-                            <div class="card-body">
-                                    <h5 class='card-title'>{{ word.inputWord }}</h5>
-                                    <p class='card-text'>{{ word.def }}</p>
-                                    <p class='card-text'>{{ word.wordType }}</p>
+                        <div class='card' id="cardWord">
+                            <div class="icon-box" data-aos="fade-up" data-aos-delay="100">
+                                <div class="card-body">
+                                        <div class="icon"><img src="{{ asset('assets/img/livres.png') }}" class="iconBook" alt=""></div>
+                                        <h5 class='card-title'>Mot entré: {{ word.inputWord }}</h5>
+                                        <p class='card-text'>Définition: {{ word.def }}</p>
+                                        <p class='card-text'>Type de mot: {{ word.groupWord }}</p>
+                                </div>
+                                <a href="{{ path('showWordTest', {'id': word.id}) }}">
+                                    <button type="submit" class="btn btn-primary">Voir détail du mot </button>
+                                </a>
                             </div>
-                            <a href="{{ path('showWord', {'id': word.id}) }}">Show</a>
                         </div>
                 {% else %}
                     <h3>no records found</h3>
@@ -25,14 +34,19 @@
         </div>
     </div>
     <div class="pagination">
-        {{ knp_pagination_render(words) }}
+        {{ knp_pagination_render(words,'@KnpPaginator/Pagination/twitter_bootstrap_v4_pagination.html.twig') }}
     </div>
 
-     <h1 class="TitreWord">Télécharger le dictionnaire</h1>
-     <a href="{{ path('downloadJson') }}" class="btn btn-primary">Télécharger</a>
 
-     <h1 class="TitreWord">Mot aléatoire</h1>
-     <a href="{{ path('randomWord') }}" class="btn btn-primary">Mot aléatoire</a>
+    
+
+
+    <h1 class="TitreWord">Télécharger le dictionnaire</h1>
+    <a href="{{ path('downloadJson') }}" class="btn btn-primary">Télécharger</a>
+
+    <h1 class="TitreWord">Mot aléatoire</h1>
+    <a href="{{ path('randomWord') }}" class="btn btn-primary">Mot aléatoire</a>
+
 
 
 
